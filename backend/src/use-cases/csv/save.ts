@@ -12,6 +12,7 @@ interface CSVprops {
   vlMovimento: number
   vlPag: number
   vlTotal: number
+  dtPag: Date
   dtContrato: Date
   dtVctPre: Date
 }
@@ -48,6 +49,9 @@ export class SaveUseCase {
             }
             if (row.vlTotal) {
               row.vlTotal = Number(row.vlTotal)
+            }
+            if (row.dtPag) {
+              row.dtPag = parseDate(row.dtPag)
             }
             if (row.dtContrato) {
               row.dtContrato = parseDate(row.dtContrato)

@@ -19,6 +19,7 @@ model Info {
   vlMovimento  Decimal
   vlPag        Decimal
   vlTotal      Decimal
+  dtPag        DateTime
   dtContrato   DateTime
   dtVctPre     DateTime
   created_at   DateTime @default(now())

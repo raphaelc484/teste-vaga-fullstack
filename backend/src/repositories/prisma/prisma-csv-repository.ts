@@ -1,3 +1,4 @@
+import { cleanNonNumericCharacters } from '../../utils/identify-cpf-cnpj'
 import { CSVRepository } from '../csv-repository'
 import { Info, PrismaClient } from '@prisma/client'
 
@@ -9,15 +10,22 @@ interface CSVprops {
   vlMovimento: number
   vlPag: number
   vlTotal: number
+  dtPag: Date
   dtContrato: Date
   dtVctPre: Date
 }
 
 export class PrismaCSVRepository implements CSVRepository {
-  async findMany(): Promise<Info[]> {
+  async findMany(query: string, page: number): Promise<Info[]> {
     const prisma = new PrismaClient()
 
-    const result = await prisma.info.findMany()
+    const result = await prisma.info.findMany({
+      where: {
+        nrCpfCnpj: { contains: cleanNonNumericCharacters(query) },
+      },
+      take: 20,
+      skip: (page - 1) * 20,
+    })
 
     return result
   }

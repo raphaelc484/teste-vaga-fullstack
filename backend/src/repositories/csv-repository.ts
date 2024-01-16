@@ -8,11 +8,12 @@ interface CSVprops {
   vlMovimento: number
   vlPag: number
   vlTotal: number
+  dtPag: Date
   dtContrato: Date
   dtVctPre: Date
 }
 
 export interface CSVRepository {
   save(dataCSV: CSVprops[]): Promise<void>
-  findMany(): Promise<Info[]>
+  findMany(query: string, page: number): Promise<Info[]>
 }
